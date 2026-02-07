@@ -1,6 +1,7 @@
-import Link from "next/link";
-
-// ...
-<Link href="/transport" className="your-button-class">
-  Access the website
-</Link>
+export default function Page() {
+  return (
+    <main style={{ padding: 24 }}>
+      <h1>Dashboard</h1>
+    </main>
+  );
+}
