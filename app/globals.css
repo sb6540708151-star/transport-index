@@ -1,0 +1,138 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ตัวหนังสือวิ่ง */
+@keyframes marquee {
+  0% { transform: translateX(100%); }
+  100% { transform: translateX(-100%); }
+}
+
+.marquee {
+  white-space: nowrap;
+  animation: marquee 15s linear infinite;
+}
+/* ===== Landing Page ===== */
+.landing {
+  min-height: 100vh;
+  background: url("/bg-landing.jpg") center/cover no-repeat;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+/* แผ่นฟิล์มทับ เพื่อให้ตัวอักษรอ่านง่าย */
+.landing::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(10, 20, 30, 0.55);
+}
+
+.landing__header {
+  position: relative;
+  z-index: 1;
+  padding: 20px 28px;
+  display: grid;
+  gap: 14px;
+}
+
+.landing__brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.landing__logo {
+  width: 78px;
+  height: 56px;
+  position: relative;
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.landing__company {
+  color: rgba(255, 255, 255, 0.92);
+  line-height: 1.15;
+}
+.landing__company-en {
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+}
+.landing__company-th {
+  font-size: 13px;
+  opacity: 0.9;
+  margin-top: 4px;
+}
+
+/* วิ่งแบบไม่ขาด (Marquee loop) */
+.landing__marquee {
+  overflow: hidden;
+  border-top: 1px solid rgba(255,255,255,0.18);
+  border-bottom: 1px solid rgba(255,255,255,0.18);
+  padding: 10px 0;
+}
+
+.landing__marquee-track {
+  display: flex;
+  width: max-content;
+  gap: 40px;
+  animation: marquee 18s linear infinite;
+  color: rgba(255,255,255,0.85);
+  font-weight: 600;
+  letter-spacing: 0.4px;
+  white-space: nowrap;
+}
+@keyframes marquee {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* กล่องกลาง */
+.landing__card {
+  position: relative;
+  z-index: 1;
+  margin: auto;
+  width: min(820px, calc(100% - 40px));
+  background: rgba(0,0,0,0.35);
+  border: 1px solid rgba(255,255,255,0.16);
+  backdrop-filter: blur(8px);
+  border-radius: 18px;
+  padding: 42px 26px;
+  text-align: center;
+}
+
+.landing__title {
+  color: white;
+  font-size: 48px;
+  margin: 0;
+  letter-spacing: 1px;
+}
+.landing__subtitle {
+  margin: 10px 0 22px;
+  color: rgba(255,255,255,0.85);
+}
+
+/* ปุ่มคลิก */
+.landing__cta {
+  display: inline-block;
+  text-decoration: none;
+  background: rgba(255,255,255,0.92);
+  color: #1b1f24;
+  padding: 16px 28px;
+  border-radius: 12px;
+  font-weight: 800;
+  box-shadow: 0 18px 45px rgba(0,0,0,0.35);
+  transition: transform .12s ease, opacity .12s ease;
+}
+.landing__cta:hover {
+  transform: translateY(-2px);
+  opacity: 0.98;
+}
+.landing__cta-th {
+  font-weight: 700;
+  opacity: 0.9;
+  margin-top: 3px;
+}
