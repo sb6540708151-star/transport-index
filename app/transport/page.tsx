@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import * as XLSX from "xlsx";
 import { saveAs } from "file-saver";
-
+import { supabase } from "../lib/supabaseclient";
 type Mode = "FCL" | "LCL" | "DROP";
 
 type SupplierRate = {
@@ -58,11 +58,54 @@ rates: [
 ],
 DROP: { heavy: 2500, light: 1500 },
 };
+async function fetchCustomersWithRates(mode: Mode) {
+  const { data, error } = await supabase
+    .from("customers")
+    .select(`
+      id,
+      name,
+      google_map_url,
+      rates (
+        supplier,
+        price,
+        note
+      )
+    `)
+    .eq("mode", mode); // ✅ บรรทัดนี้แหละที่ขาด
 
+  if (error) {
+    console.log("Supabase error:", error);
+    return [];
+  }
+
+  return data ?? [];
+}
 export default function TransportPage() {
 const [mode, setMode] = useState<Mode>("FCL");
 const [data, setData] = useState<DataShape>(defaultData);
 const [search, setSearch] = useState("");
+
+useEffect(() => {
+  if (mode === "DROP") return;
+
+  fetchCustomersWithRates(mode).then((rows) => {
+    const mapped: Customer[] = (rows ?? []).map((c: any) => ({
+      id: c.id,
+      name: c.name,
+      googleMapUrl: c.google_map_url,
+      rates: (c.rates ?? []).map((r: any) => ({
+        supplier: r.supplier,
+        price: r.price,
+        note: r.note ?? undefined,
+      })),
+    }));
+
+    setData((prev) => ({
+      ...prev,
+      [mode]: mapped,
+    }));
+  });
+}, [mode]);
 const customers = data[mode === "DROP" ? "FCL" : mode]; // กัน TS
 const list: Customer[] = mode === "DROP" ? [] : (data[mode] as Customer[]);
 const filteredList = list.filter(c =>
