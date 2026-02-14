@@ -872,7 +872,16 @@ style={{ ...ui.tabBtn, ...(mode === m ? ui.tabBtnActive : {}) }}
 type="button"
 title={modeLabelFull[m]}
 >
-{modeLabel[m]}
+ <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start", gap: 2 }}>
+    <span style={{ fontWeight: 900 }}>{modeLabel[m]}</span>
+    <span style={{ fontSize: 11, fontWeight: 700, opacity: mode === m ? 0.85 : 0.6 }}>
+      {m === "FCL"
+        ? "Full Container Load"
+        : m === "LCL"
+        ? "Less than Container Load"
+        : "DROP"}
+    </span>
+  </div>
 </button>
 ))}
 </div>
