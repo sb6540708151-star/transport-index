@@ -1014,7 +1014,7 @@ type="button"
 {/* RIGHT */}
 <section style={ui.card}>
 <div style={ui.cardHeader}>
-<h2 style={ui.h2}>{mode === "DROP" ? "ตารางราคา DROP (ตามซัพพลายเออร์)" : "ราคาค่าขนส่ง (เรียงถูก → แพง)"}</h2>
+<h2 style={ui.h2}>{mode === "DROP" ? "ตารางราคา DROP (ตามซัพพลายเออร์)" : "ราคาค่าขนส่ง (เรียงน้อย → มาก)"}</h2>
 <div style={ui.mutedSmall}>{mode === "DROP" ? "แสดงรายการราคาของแต่ละซัพพลายเออร์" : "เพิ่ม/แก้ไข/ลบ ได้เฉพาะผู้ดูแลระบบ"}</div>
 </div>
 
